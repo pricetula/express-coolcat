@@ -1,0 +1,15 @@
+{
+  "extends": "standard",
+  "rules": {
+    "semi": 0
+  },
+  "globals": {
+    "chai": true,
+    "assert": true,
+    "expect": true,
+    "app": true,
+    "mongoose": true,
+    "UserModel": true,
+    "test": true
+  }
+}
