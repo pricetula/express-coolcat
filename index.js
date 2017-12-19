@@ -3,6 +3,7 @@ const winston = require('winston');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const userRoutes = require('./api/user/routes');
 
 const app = express(
 );
@@ -24,6 +25,11 @@ app.use(
   )
 );
 
+app.use(
+  '/user',
+  userRoutes
+);
+
 app.get(
   '/',
   function (
@@ -32,11 +38,14 @@ app.get(
   ) {
     res
       .sendFile(
-        path.join(__dirname + '/public/index.html')
+        path.join(
+          __dirname,
+          'public/index.html'
+        )
       );
   }
 );
-//d
+
 app.use(
   function (
     req,
@@ -46,7 +55,10 @@ app.use(
     res
       .status(404)
       .sendFile(
-        path.join(__dirname + '/public/404.html')
+        path.join(
+          __dirname,
+          'public/404.html'
+        )
       );
   }
 );
