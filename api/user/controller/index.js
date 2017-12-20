@@ -108,7 +108,7 @@ const controller = {
 
       if (process.env.NODE_ENV !== 'test') {
         mailer(
-          req.validUser.email,
+          `${req.validUser.firstName} <${req.validUser.email}>`,
           'Cool Cat Email Validation',
           userToken
         );

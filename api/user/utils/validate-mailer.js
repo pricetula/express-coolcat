@@ -1,14 +1,15 @@
 const appConfig = require('../../config');
-const mailer = require('../../utils/mailer');
+const mailTranspoter = require('../../utils/mail-transpoter');
 
 module.exports = (
   address,
   subject,
   token
-) => mailer(
+) => mailTranspoter.sendMail(
   {
-    address,
+    to: address,
     subject,
-    message: `Click link to activate account ${appConfig.url}/user/verify/${token}`
-  }
+    text: `Click link to activate account ${appConfig.url}/user/verify/${token}`
+  },
+  (err) => console.log(err)
 );
