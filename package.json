@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha ./api/*.spec.js -t 10000 -r mocha.config.js --recursive api --exit",
     "start": "NODE_ENV=production node index.js",
     "start:dev": "NODE_ENV=development nodemon index.js"
   },
