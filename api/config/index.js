@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  url = 'https://express-coolcat.herokuapp.com/';
+  url = 'https://express-coolcat.herokuapp.com';
 } else {
   url = `http://localhost:${port}`;
 }
