@@ -5,6 +5,7 @@ const winston = require('winston');
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./user/routes');
+const todoRoutes = require('./todo/routes');
 const appConfig = require('./config');
 
 const app = express(
@@ -53,6 +54,11 @@ app.use(
   userRoutes
 );
 
+app.use(
+  '/todos',
+  todoRoutes
+);
+
 app.get(
   '/',
   function (
@@ -83,6 +89,17 @@ app.use(
           'public/404.html'
         )
       );
+  }
+);
+
+app.use(
+  function (
+    err,
+    req,
+    res,
+    next
+  ) {
+    res.status(500).send(err)
   }
 );
 
