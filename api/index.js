@@ -1,6 +1,6 @@
 /* eslint-disable function-paren-newline */
 const path = require('path');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const winston = require('winston');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,7 +9,7 @@ const appConfig = require('./config');
 
 const app = express(
 );
-
+/*
 mongoose.connect(
   appConfig.mongoDBconnectionUri,
   appConfig.mongoDBoptions
@@ -30,7 +30,7 @@ db.once(
     '[-------Database Connected-------]'
   )
 );
-
+*/
 app.use(
   bodyParser.json(
     {
@@ -47,12 +47,12 @@ app.use(
     )
   )
 );
-
+/*
 app.use(
   '/user',
   userRoutes
 );
-
+*/
 app.get(
   '/',
   function (
