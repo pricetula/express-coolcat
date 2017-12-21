@@ -1,4 +1,3 @@
-/* eslint-disable function-paren-newline */
 const path = require('path');
 const mongoose = require('mongoose');
 const winston = require('winston');
