@@ -1,19 +1,16 @@
 const nodemailer = require('nodemailer');
 const {
-  appMailSmtpServer,
-  appMailSmtpPort,
-  appMailSmtpPassword,
-  appMailSmtpEmail
+  appMailEmail,
+  appMailPassword,
 } = require('../config/keys');
 
 module.exports = nodemailer.createTransport(
   {
-    host: appMailSmtpServer,
-    port: appMailSmtpPort,
-    secure: false,
+    host: 'smtp.gmail.com',
+    port: 465,
     auth: {
-      user: appMailSmtpEmail,
-      pass: appMailSmtpPassword
+      user: appMailEmail,
+      pass: appMailPassword
     },
     logger: false,
     debug: false // include SMTP traffic in the logs

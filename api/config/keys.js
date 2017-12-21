@@ -8,7 +8,9 @@ const keys = {
   appMailSmtpPassword: process.env.MAILGUN_SMTP_PASSWORD,
   appMailSmtpPort: process.env.MAILGUN_SMTP_PORT,
   appMailSmtpServer: process.env.MAILGUN_SMTP_SERVER,
-  appKey: process.env.COOLCAT_APP_KEY
+  appKey: process.env.COOLCAT_APP_KEY,
+  appMailEmail: process.env.COOLCAT_EMAIL,
+  appMailPassword: process.env.COOLCAT_PASSWORD
 };
 
 module.exports = keys;

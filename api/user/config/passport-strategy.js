@@ -7,7 +7,7 @@ const {
 const UserModel = require('../model');
 const appKey = require('../../config/keys').appKey;
 
-// FOR JWT REQUESTS authenticate requests
+// FOR REQUESTS authentication
 passport.use(
   new Strategy(
     {

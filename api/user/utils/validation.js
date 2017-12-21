@@ -39,10 +39,14 @@ module.exports = {
     if (validatedUser.error) {
       res.status(400).json(
         process.env.NODE_ENV === 'production'
-          ? validatedUser.error.details[0].message
+          ? {
+            message: 'Names, Email or Password missing',
+            error: true
+          }
           : validatedUser.error
       );
     } else {
+      // Make sure valid user is empty
       if (req.validUser) { req.validUser = {}; }
 
       req['validUser'] = validatedUser.value;

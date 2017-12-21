@@ -26,9 +26,13 @@ db.on(
 
 db.once(
   'open',
-  () => winston.info(
-    '[-------Database Connected-------]'
-  )
+  () => {
+    if (process.env.NODE_ENV !== 'test') {
+      winston.info(
+        '[-------Database Connected-------]'
+      )
+    }
+  }
 );
 
 app.use(

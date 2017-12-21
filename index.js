@@ -6,6 +6,8 @@ app.listen(
   config.port
 );
 
-winston.info(
-  `🌎 >>> Server started on ${config.url}`
-);
+if (process.env.NODE_ENV !== 'test') {
+  winston.info(
+    `🌎 >>> Server started on ${config.url}`
+  );
+}

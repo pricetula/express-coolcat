@@ -32,7 +32,7 @@ router
   );
 
 router
-  .route('/admin')
+  .route('/')
   .get(
     passport.authenticate(
       // strategy

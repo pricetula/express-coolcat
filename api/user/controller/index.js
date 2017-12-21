@@ -15,7 +15,8 @@ const controller = {
   admin: (req, res, next) => {
     res.json({
       user: req.user,
-      message: 'Access to admin'
+      message: 'Access to admin',
+      error: false
     });
   },
 
@@ -81,7 +82,7 @@ const controller = {
         .status(401)
         .json(
           {
-            message: 'User exists',
+            message: 'User Exists',
             error: true
           }
         );
@@ -102,28 +103,32 @@ const controller = {
         }
       );
 
-      await newUser.save();
+      try {
+        await newUser.save();
 
-      const token = tokenGenerator(newUser.id);
+        const token = tokenGenerator(newUser.id);
 
-      if (process.env.NODE_ENV !== 'test') {
-        mailer(
-          `${req.validUser.firstName} <${req.validUser.email}>`,
-          'Cool Cat Email Validation',
-          userToken
-        );
+        if (process.env.NODE_ENV !== 'test') {
+          mailer(
+            `${req.validUser.firstName} <${req.validUser.email}>`,
+            'Cool Cat Email Validation',
+            userToken
+          );
+        }
+
+        res
+          // resource created
+          .status(201)
+          .json(
+            {
+              token,
+              message: 'User Created',
+              error: false
+            }
+          );
+      } catch (err) {
+        next(err);
       }
-
-      res
-        // resource created
-        .status(201)
-        .json(
-          {
-            token,
-            message: 'user created',
-            error: false
-          }
-        );
     }
   }
 };
