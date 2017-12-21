@@ -1,4 +1,3 @@
-const moment = require('moment');
 const TodoModel = require('../model');
 
 const controller = {
@@ -10,7 +9,7 @@ const controller = {
             item: req.body.item,
             description: req.body.description
           },
-          dueDate: moment(new Date()).add(1, 'm'),
+          dueDate: req.body.dueDate,
           owner: req.user._id
         }
       );
