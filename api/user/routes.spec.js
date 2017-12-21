@@ -1,5 +1,4 @@
 /* eslint-env mocha */
-const routes = require('./routes.js');
 const app = require('../index');
 
 describe(
