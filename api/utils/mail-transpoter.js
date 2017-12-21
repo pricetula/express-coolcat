@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const {
   appMailEmail,
-  appMailPassword,
+  appMailPassword
 } = require('../config/keys');
 
 module.exports = nodemailer.createTransport(
