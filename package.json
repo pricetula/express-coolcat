@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha api/*.spec.js -t 10000 -r babel-core/register -r mocha.config.js --recursive api --exit",
-    "start": "NODE_ENV=production node index.js",
-    "start:dev": "NODE_ENV=development nodemon index.js"
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha api/*.spec.js -t 10000 -r babel-core/register -r api/mocha.config.js --recursive api --exit",
+    "start": "NODE_ENV=production node api/index.js",
+    "start:dev": "NODE_ENV=development nodemon api/index.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",

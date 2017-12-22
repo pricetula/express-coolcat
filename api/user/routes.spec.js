@@ -3,7 +3,7 @@ const faker = require('faker');
 const {
   pick
 } = require('lodash/object');
-const app = require('../index');
+const app = require('../api');
 const UserModel = require('./model');
 
 describe(
