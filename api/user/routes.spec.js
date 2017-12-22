@@ -16,7 +16,37 @@ describe(
       password: faker.internet.password()
     };
 
+    const testUser2 = {
+      email: 'xxxxx@aaaa.cc',
+      firstName: 'aaaaaa',
+      lastName: 'ddddddd',
+      password: 'ffffff'
+    };
+
     let token = false;
+
+    before(
+      function (done) {
+        const existingUser = new UserModel(
+          {
+            email: testUser2.email,
+            password: testUser2.password,
+            details: {
+              name: {
+                first: testUser2.firstName,
+                last: testUser2.lastName
+              }
+            },
+            token: 'ddddd'
+          }
+        );
+
+        existingUser
+          .save()
+          .then(() => done())
+          .catch(done)
+      }
+    )
 
     after(
       function (done) {
@@ -99,7 +129,6 @@ describe(
           )
           .end(
             (err, res) => {
-              // NOTE chai-http fails with error if unauthorised access
               assert.strictEqual(
                 res.status,
                 400,
@@ -117,7 +146,7 @@ describe(
     );
 
     it(
-      'Prevent Signup if names are of length 1 or below',
+      'Prevent Signup if first name missing',
       function (done) {
         chai
           .request(app)
@@ -126,8 +155,7 @@ describe(
           .send(
             {
               ...testUser,
-              firstName: 'A',
-              lastName: ''
+              firstName: ''
             }
           )
           .end(
@@ -139,9 +167,49 @@ describe(
                 'Response Status not 400'
               );
 
-              if (err) {
-                // handle error caught
-              }
+              assert.strictEqual(
+                JSON.parse(res.error.text).message,
+                'First name is short or missing',
+                'Wrong error for missing name'
+              );
+
+              if (err) {}
+
+              return done();
+            }
+          );
+      }
+    );
+
+    it(
+      'Prevent Signup if first name is short',
+      function (done) {
+        chai
+          .request(app)
+          .post('/user/signup')
+          .set('content-type', 'application/json')
+          .send(
+            {
+              ...testUser,
+              firstName: 'a'
+            }
+          )
+          .end(
+            (err, res) => {
+              // NOTE chai-http fails with error if unauthorised access
+              assert.strictEqual(
+                res.status,
+                400,
+                'Response Status not 400'
+              );
+
+              assert.strictEqual(
+                JSON.parse(res.error.text).message,
+                'First name is short or missing',
+                'Wrong error for missing name'
+              );
+
+              if (err) { }
 
               return done();
             }
@@ -234,18 +302,10 @@ describe(
           .set('content-type', 'application/json')
           .set('accept', 'application/json')
           .send(
-            testUser
+            testUser2
           )
           .end(
             (err, res) => {
-              // TODO use correct tests for checking message
-              assert.strictEqual(
-                res.status,
-                500,
-                'Response Status not 500'
-              );
-              /*
-                // NOTE chai-http fails with error if unauthorised access
               assert.strictEqual(
                 res.status,
                 401,
@@ -271,7 +331,6 @@ describe(
                 'User Exists',
                 'Response message incorrect'
               );
-              */
 
               if (err) {
                 // handle error caught

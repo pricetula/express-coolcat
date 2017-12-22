@@ -71,65 +71,72 @@ const controller = {
     });
   },
 
-  signup: async (req, res, next) => {
-    const foundUser = await UserModel.findOne({
-      email: req.validUser.email
-    });
+  signup: (req, res, next) => {
+    UserModel.findOne(
+      {
+        email: req.validUser.email
+      },
+      (err, user) => {
+        if (err) {
+          next(err);
+        } else {
+          if (user) {
+            res
+              .status(401)
+              .json(
+                {
+                  message: 'User Exists',
+                  error: true
+                }
+              );
+          } else {
+            const userToken = randomstring.generate(10);
 
-    if (foundUser) {
-      res
-        // unauthorized
-        .status(401)
-        .json(
-          {
-            message: 'User Exists',
-            error: true
+            const newUser = new UserModel(
+              {
+                email: req.validUser.email,
+                password: req.validUser.password,
+                details: {
+                  name: {
+                    first: req.validUser.firstName,
+                    last: req.validUser.lastName
+                  }
+                },
+                token: userToken
+              }
+            );
+
+            newUser
+              .save()
+              .then(
+                () => {
+                  const token = tokenGenerator(newUser.id);
+
+                  if (process.env.NODE_ENV !== 'test') {
+                    mailer(
+                      `${req.validUser.firstName} <${req.validUser.email}>`,
+                      'Cool Cat Email Validation',
+                      userToken
+                    );
+                  }
+
+                  res
+                    // resource created
+                    .status(201)
+                    .json(
+                      {
+                        token,
+                        message: 'User Created',
+                        error: false
+                      }
+                    );
+                }
+              )
+              .catch(console.log);
           }
-        );
-    } else {
-      const userToken = randomstring.generate(10);
-
-      const newUser = new UserModel(
-        {
-          email: req.validUser.email,
-          password: req.validUser.password,
-          details: {
-            name: {
-              first: req.validUser.firstName,
-              last: req.validUser.lastName
-            }
-          },
-          token: userToken
         }
-      );
-
-      try {
-        await newUser.save();
-
-        const token = tokenGenerator(newUser.id);
-
-        if (process.env.NODE_ENV !== 'test') {
-          mailer(
-            `${req.validUser.firstName} <${req.validUser.email}>`,
-            'Cool Cat Email Validation',
-            userToken
-          );
-        }
-
-        res
-          // resource created
-          .status(201)
-          .json(
-            {
-              token,
-              message: 'User Created',
-              error: false
-            }
-          );
-      } catch (err) {
-        next(err);
       }
-    }
+    );
   }
 };
 

@@ -17,7 +17,7 @@ describe(
           {
             port: 3031,
             url: 'http://localhost:3031',
-            mongoDBconnectionUri: 'mongodb://coolcattest:test123@ds137826.mlab.com:37826/coolcattest',
+            mongoDBconnectionUri: 'mongodb://127.0.0.1:27017',
             mongoDBoptions: {
               useMongoClient: true
             }

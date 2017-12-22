@@ -98,11 +98,15 @@ app.use(
 app.use(
   function (
     err,
-    req,
-    res,
-    next
+    res
   ) {
-    res.status(500).send(err)
+    res.status(
+      err.status
+        ? err.status
+        : 500
+    ).send(
+      err.body
+    )
   }
 );
 
