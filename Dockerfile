@@ -1,15 +1,15 @@
 FROM node:8.9.3
 
 # Create app directory
-RUN mkdir -p /dockerized
-WORKDIR /dockerized
+RUN mkdir -p /app
+WORKDIR /app
 
 # Install app dependencies
-COPY package.json /dockerized
+COPY package.json /app
 Run npm install
 
 # Bundle app source
-COPY . /dockerized
+COPY . /app
 
-EXPOSE 3000
+EXPOSE 3030
 CMD [ "npm", "start" ]
