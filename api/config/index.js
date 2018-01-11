@@ -2,7 +2,7 @@ let port = process.env.PORT || 3030;
 let url = 'https://express-coolcat.herokuapp.com';
 let mongoDBconnectionUri = process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
-  'mongodb://coolcat:funguamlab1@ds129146.mlab.com:29146/coolcat';
+  `mongodb://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@ds251827.mlab.com:51827/coolcat`;
 
 if (process.env.NODE_ENV === 'development') {
   // 'mongodb://coolcattest:test123@ds137826.mlab.com:37826/coolcattest';
