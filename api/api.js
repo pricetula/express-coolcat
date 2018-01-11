@@ -1,5 +1,6 @@
 const path = require('path');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const winston = require('winston');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -40,6 +41,11 @@ app.use(
     {
       type: 'application/json'
     }
+  )
+);
+
+app.use(
+  cors(
   )
 );
 
