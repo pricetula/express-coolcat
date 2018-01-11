@@ -11,6 +11,11 @@ const appConfig = require('./config');
 const app = express(
 );
 
+app.use(
+  cors(
+  )
+);
+
 mongoose.connect(
   appConfig.mongoDBconnectionUri,
   appConfig.mongoDBoptions
@@ -41,11 +46,6 @@ app.use(
     {
       type: 'application/json'
     }
-  )
-);
-
-app.use(
-  cors(
   )
 );
 
