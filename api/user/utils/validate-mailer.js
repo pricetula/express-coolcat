@@ -1,5 +1,6 @@
 const appConfig = require('../../config');
 const mailTranspoter = require('../../utils/mail-transpoter');
+const ExpressError = require('../../utils/ExpressError');
 
 module.exports = (
   address,
@@ -17,6 +18,8 @@ module.exports = (
         <a style="background-color: #CE0985;border: none;border-radius: 1em;color: white;padding: 1em;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;font-weight:bold;" href="${appConfig.url}/user/verify/${token}">Activate</a>
       </div>`
     },
-    (err) => console.log(err)
+    (err) => new ExpressError(
+      err.message || 'Email Not Sent'
+    )
   );
 }

@@ -132,7 +132,7 @@ const controller = {
                     );
                 }
               )
-              .catch(console.log);
+              .catch(next);
           }
         }
       }

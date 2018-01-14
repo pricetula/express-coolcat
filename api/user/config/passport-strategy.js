@@ -6,6 +6,7 @@ const {
 } = require('passport-jwt');
 const UserModel = require('../model');
 const appKey = require('../../config/keys').appKey;
+const ExpressError = require('../../utils/ExpressError');
 
 // FOR REQUESTS authentication
 passport.use(
@@ -24,7 +25,12 @@ passport.use(
             return done(error);
           } else {
             if (!user) {
-              return done(null, false);
+              return done(
+                new ExpressError(
+                  'User Does Not Exist',
+                  401
+                )
+              );
             } else {
               // if user is found the done() func will set user to req.user
               return done(null, user);
@@ -55,17 +61,27 @@ passport.use(
             return done(error);
           } else {
             if (!user) {
-              return done(null, false);
-            } else {
-              // We use custom method defined in user schema. It already has the hashed this.password from db
-              const isPasswordCorrect = await user.checkPassword(password);
+              return done(
+                new ExpressError(
+                  'User Does Not Exist',
+                  401
+                )
+              );
+            }
 
-              if (!isPasswordCorrect) {
-                return done(null, false);
-              } else {
-                // Store the user object to next req.user
-                return done(null, user)
-              }
+            // We use custom method defined in user schema. It already has the hashed this.password from db
+            const isPasswordCorrect = await user.checkPassword(password);
+
+            if (!isPasswordCorrect) {
+              return done(
+                new ExpressError(
+                  'Incorrect Password or Email combination',
+                  401
+                )
+              );
+            } else {
+              // Store the user object to next req.user
+              return done(null, user)
             }
           }
         }

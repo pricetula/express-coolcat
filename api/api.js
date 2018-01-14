@@ -86,6 +86,27 @@ app.get(
 
 app.use(
   function (
+    err,
+    req,
+    res,
+    next
+  ) {
+    if (!err) {
+      next();
+    }
+
+    res.status(
+      err.status
+        ? err.status
+        : 500
+    ).send(
+      err.body || err
+    )
+  }
+);
+
+app.use(
+  function (
     req,
     res,
     next
@@ -98,21 +119,6 @@ app.use(
           'public/404.html'
         )
       );
-  }
-);
-
-app.use(
-  function (
-    err,
-    res
-  ) {
-    res.status(
-      err.status
-        ? err.status
-        : 500
-    ).send(
-      err.body
-    )
   }
 );
 
