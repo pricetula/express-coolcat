@@ -124,8 +124,7 @@ const controller = {
             .json(
               {
                 todo,
-                message: 'Todo Finished',
-                error: false
+                message: 'Todo Finished'
               }
             );
         }
@@ -162,8 +161,7 @@ const controller = {
             res
               .json(
                 {
-                  message: 'All todos incomplete set',
-                  error: false
+                  message: 'All todos incomplete set'
                 }
               );
           }
@@ -193,8 +191,7 @@ const controller = {
             .json(
               {
                 todo,
-                message: 'Todo Prioritized',
-                error: false
+                message: 'Todo Prioritized'
               }
             );
         }
@@ -215,8 +212,7 @@ const controller = {
           res
             .json(
               {
-                message: 'Todo Deleted',
-                error: false
+                message: 'Todo Deleted'
               }
             );
         }
@@ -237,8 +233,7 @@ const controller = {
           res
             .json(
               {
-                message: 'Todo Deleted',
-                error: false
+                message: 'Todo Deleted'
               }
             );
         }
