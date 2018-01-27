@@ -94,8 +94,7 @@ const controller = {
             .json(
               {
                 todo,
-                message: 'Todo Hidden',
-                error: false
+                message: 'Todo Hidden'
               }
             );
         }

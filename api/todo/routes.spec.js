@@ -266,5 +266,96 @@ describe(
           );
       }
     );
+
+    it(
+      'Hide one todo with id',
+      function (done) {
+        chai
+          .request(app)
+          .put(`/todos/${testTodoId}/hide`)
+          .set('content-type', 'application/json')
+          .set('Authorization', token)
+          .end(
+            (err, res) => {
+              // NOTE chai-http fails with error if unauthorised access
+              if (err) {
+                // handle error caught
+              }
+
+              assert.strictEqual(
+                res.status,
+                200
+              );
+
+              assert.isTrue(
+                res.body.todo.status.hide
+              );
+
+              return done();
+            }
+          );
+      }
+    );
+
+    it(
+      'Finish one todo with id',
+      function (done) {
+        chai
+          .request(app)
+          .put(`/todos/${testTodoId}/finished`)
+          .set('content-type', 'application/json')
+          .set('Authorization', token)
+          .end(
+            (err, res) => {
+              // NOTE chai-http fails with error if unauthorised access
+              if (err) {
+                // handle error caught
+              }
+
+              assert.strictEqual(
+                res.status,
+                200
+              );
+
+              assert.isTrue(
+                res.body.todo.status.finished
+              );
+
+              return done();
+            }
+          );
+      }
+    );
+
+    it(
+      'Priority one todo with id',
+      function (done) {
+        chai
+          .request(app)
+          .put(`/todos/${testTodoId}/priority/2`)
+          .set('content-type', 'application/json')
+          .set('Authorization', token)
+          .end(
+            (err, res) => {
+              // NOTE chai-http fails with error if unauthorised access
+              if (err) {
+                // handle error caught
+              }
+
+              assert.strictEqual(
+                res.status,
+                200
+              );
+
+              assert.strictEqual(
+                res.body.todo.status.priority,
+                2
+              );
+
+              return done();
+            }
+          );
+      }
+    );
   }
 );
