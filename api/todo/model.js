@@ -22,6 +22,11 @@ let TodoSchema = new Schema({
     required: true
   },
 
+  localId: {
+    type: String,
+    required: true
+  },
+
   status: {
     priority: {
       type: Number,
@@ -45,6 +50,12 @@ let TodoSchema = new Schema({
       required: true,
       default: false
     }
+  },
+
+  startDate: {
+    type: Date,
+    required: true,
+    default: Date.now
   },
 
   dueDate: {

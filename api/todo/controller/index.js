@@ -37,8 +37,7 @@ const controller = {
             .json(
               {
                 todos,
-                message: `Todos Found ${todos.length}`,
-                error: false
+                message: `Todos Found ${todos.length}`
               }
             );
         }
