@@ -10,6 +10,7 @@ const controller = {
             description: req.body.description
           },
           startDate: req.body.startDate,
+          localId: req.body.localId,
           dueDate: req.body.dueDate,
           owner: req.user._id
         }
@@ -52,7 +53,7 @@ const controller = {
   getTodoId: (req, res, next) => {
     TodoModel.findOne(
       {
-        _id: req.params.id,
+      //  _id: req.params.id,
         owner: req.user._id
       },
       (err, todo) => {
@@ -63,8 +64,7 @@ const controller = {
             .json(
               {
                 todo,
-                message: todo ? 'Todo Found' : 'Todo Not Found',
-                error: false
+                message: todo ? 'Todo Found' : 'Todo Not Found'
               }
             );
         }
