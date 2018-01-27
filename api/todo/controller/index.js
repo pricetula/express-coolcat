@@ -9,19 +9,23 @@ const controller = {
             item: req.body.item,
             description: req.body.description
           },
+          startDate: req.body.startDate,
           dueDate: req.body.dueDate,
           owner: req.user._id
         }
       );
 
-      todo.save();
-
-      res.json(
-        {
-          message: 'Todo Added',
-          error: false
-        }
-      );
+      todo
+        .save()
+        .then(
+          todo => res.json(
+            {
+              todo,
+              message: 'Todo Added'
+            }
+          )
+        )
+        .catch(next);
     } catch (err) {
       next(err);
     }

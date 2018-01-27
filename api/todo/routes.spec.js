@@ -103,5 +103,76 @@ describe(
           );
       }
     );
+
+    it(
+      'Add todo',
+      function (done) {
+        const currentTodo = {
+          item: faker.lorem.word(),
+          description: faker.lorem.paragraph(),
+          dueDate: moment(new Date())
+            .add(1, 'h')
+            .toDate(),
+          startDate: new Date()
+        };
+
+        chai
+          .request(app)
+          .post('/todos/')
+          .set('content-type', 'application/json')
+          .set('Authorization', token)
+          .send(
+            currentTodo
+          )
+          .end(
+            (err, res) => {
+              // NOTE chai-http fails with error if unauthorised access
+              if (err) {
+                // handle error caught
+              }
+
+              assert.strictEqual(
+                res.status,
+                200,
+                'Response Status not 200'
+              );
+
+              assert.containsAllKeys(
+                res.body,
+                [
+                  'todo',
+                  'message'
+                ],
+                'Response Status not properties missing'
+              );
+
+              assert.isString(
+                res.body.message
+              );
+
+              assert.strictEqual(
+                res.body.message,
+                'Todo Added'
+              );
+
+              assert.isObject(
+                res.body.todo
+              );
+
+              assert.deepInclude(
+                {
+                  ...res.body.todo,
+                  dueDate: moment(
+                    res.body.todo.dueDate
+                  ).toDate()
+                },
+                currentTodo
+              );
+
+              return done();
+            }
+          );
+      }
+    );
   }
 );
